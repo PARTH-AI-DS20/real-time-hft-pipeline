@@ -81,3 +81,4 @@ python stress_test.py
 ```
 
 ## 📸 Dashboard Telemetry
+<img src="assets/139.png" width="800" alt="Dashboard UI Telemetry">

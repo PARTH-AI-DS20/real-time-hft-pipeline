@@ -24,30 +24,33 @@ graph LR
     style D fill:#FFD43B,stroke:#333,stroke-width:2px,color:#000
     style E fill:#FF4B4B,stroke:#333,stroke-width:2px,color:#fff
 ```
-
 The pipeline is strictly decoupled to ensure high availability and zero data loss during high-velocity bursts:
-* **Data Generation (`producer_api.py`):** Asynchronous endpoint producing synthetic equity ticks.
-* **Message Broker (`docker-compose.yml`):** Containerized Apache Kafka buffering the stream.
-* **Analytical Engine (`consumer_storage.py`):** Consumer reading the stream and writing to DuckDB for real-time aggregation (20-Tick SMA, Volatility).
-* **Serving Layer (`app_dashboard.py`):** Streamlit querying DuckDB to render a sub-second latency live dashboard.
+
+Data Generation (producer_api.py): Asynchronous endpoint producing synthetic equity ticks.
+
+Message Broker (docker-compose.yml): Containerized Apache Kafka buffering the stream.
+
+Analytical Engine (consumer_storage.py): Consumer reading the stream and writing to DuckDB for real-time aggregation (20-Tick SMA, Volatility).
+
+Serving Layer (app_dashboard.py): Streamlit querying DuckDB to render a sub-second latency live dashboard.
 
 ## 📊 Performance & Stress Test Metrics
-The architecture was mathematically load-tested (`stress_test.py`) using a custom asynchronous `httpx` + `asyncio` script to identify systemic bottlenecks and backpressure handling.
+The architecture was mathematically load-tested (stress_test.py) using a custom asynchronous httpx + asyncio script to identify systemic bottlenecks and backpressure handling.
 
-* **Sustained Throughput:** Verified continuous ingestion of **500 Requests Per Second (RPS)** (~1.8 Million events/hour) with zero Kafka consumer lag.
-* **In-Memory Querying:** DuckDB successfully maintained sub-millisecond read/write locks, allowing the UI to render rolling averages on the fly without database locking.
-* **Systemic Limit Identified:** Max concurrency limit reached at **1,000 RPS**, resulting in HTTP connection pool exhaustion at the FastAPI worker layer (`httpcore.PoolTimeout`), proving the backend storage outpaces localized web-server I/O.
+Sustained Throughput: Verified continuous ingestion of 500 Requests Per Second (RPS) (~1.8 Million events/hour) with zero Kafka consumer lag.
+
+In-Memory Querying: DuckDB successfully maintained sub-millisecond read/write locks, allowing the UI to render rolling averages on the fly without database locking.
+
+Systemic Limit Identified: Max concurrency limit reached at 1,000 RPS, resulting in HTTP connection pool exhaustion at the FastAPI worker layer (httpcore.PoolTimeout), proving the backend storage outpaces localized web-server I/O.
 
 ## 🚀 How to Run Locally
-
-### 1. Start the Infrastructure (Kafka)
-```bash
+1. Start the Infrastructure (Kafka)
+Bash
 docker-compose up -d
-```
 2. Configure the Python Environment
 It is highly recommended to run this pipeline within an isolated virtual environment.
 
-```Bash
+Bash
 # Create the virtual environment
 python -m venv venv
 
@@ -59,12 +62,10 @@ python -m venv venv
 
 # Install required dependencies
 pip install -r requirements.txt
-```
-
 3. Initialize the Pipeline (Run in separate terminals)
 Ensure your virtual environment is activated in each new terminal before executing.
 
-```Bash
+Bash
 # Start the FastAPI Producer
 uvicorn producer_api:app --reload
 
@@ -73,12 +74,8 @@ python consumer_storage.py
 
 # Launch the Live Dashboard
 streamlit run app_dashboard.py
-```
-
 4. Execute the Stress Test
-```Bash
+Bash
 python stress_test.py
-```
-
 ## 📸 Dashboard Telemetry
 <img src="assets/139.png" width="800" alt="Dashboard UI Telemetry">

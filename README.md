@@ -1,6 +1,3 @@
-Here is the clean, perfectly formatted Markdown block. Use the "Copy code" button in the top right corner of the block below, and paste it directly into your `README.md` file on GitHub.
-
-```markdown
 # 📈 High-Throughput Real-Time Market Analytics Pipeline
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
@@ -66,11 +63,8 @@ python stress_test.py
 ```
 
 ## 📸 Dashboard Telemetry
-*(Strategic Note: Take a screenshot of your running Streamlit dashboard, upload it to your GitHub repo, and replace this text with the image link e.g., `![Dashboard UI](link_to_your_image.png)`)*
+
 ```
 
 ---
-
 **Execution Directive:** Once that is successfully committed to GitHub, we move instantly to **Project 2: Unstructured ETL & Full-Text Search Pipeline**.
-
-To begin building the parser for your GATE CSE questions, I need to know our starting point. Do you already have a local PDF, text file, or HTML file containing past GATE CSE questions, or do we need to write a web-scraper to download them from a website first?

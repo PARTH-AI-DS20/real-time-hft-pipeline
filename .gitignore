@@ -1,0 +1,12 @@
+# Database files (Do not push heavy local data)
+*.duckdb
+*.duckdb.wal
+
+# Python Cache (Useless generated files)
+__pycache__/
+*.py[cod]
+
+# Environments & Secrets
+.env
+.venv/
+venv/

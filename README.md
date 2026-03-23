@@ -40,13 +40,31 @@ The architecture was mathematically load-tested (`stress_test.py`) using a custo
 
 ## 🚀 How to Run Locally
 
-### 1. Start the Infrastructure
+### 1. Start the Infrastructure (Kafka)
 ```bash
 docker-compose up -d
 ```
+2. Configure the Python Environment
+It is highly recommended to run this pipeline within an isolated virtual environment.
 
-### 2. Initialize the Pipeline (Run in separate terminals)
-```bash
+```Bash
+# Create the virtual environment
+python -m venv venv
+
+# Activate the environment (Windows)
+.\venv\Scripts\activate
+
+# Activate the environment (Mac/Linux)
+# source venv/bin/activate
+
+# Install required dependencies
+pip install -r requirements.txt
+```
+
+3. Initialize the Pipeline (Run in separate terminals)
+Ensure your virtual environment is activated in each new terminal before executing.
+
+```Bash
 # Start the FastAPI Producer
 uvicorn producer_api:app --reload
 
@@ -57,11 +75,9 @@ python consumer_storage.py
 streamlit run app_dashboard.py
 ```
 
-### 3. Execute the Stress Test
-```bash
+4. Execute the Stress Test
+```Bash
 python stress_test.py
 ```
 
 ## 📸 Dashboard Telemetry
-
-```

@@ -65,6 +65,3 @@ python stress_test.py
 ## 📸 Dashboard Telemetry
 
 ```
-
----
-**Execution Directive:** Once that is successfully committed to GitHub, we move instantly to **Project 2: Unstructured ETL & Full-Text Search Pipeline**.

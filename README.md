@@ -45,12 +45,12 @@ Systemic Limit Identified: Max concurrency limit reached at 1,000 RPS, resulting
 
 ## 🚀 How to Run Locally
 1. Start the Infrastructure (Kafka)
-Bash
+```Bash
 docker-compose up -d
+```
 2. Configure the Python Environment
 It is highly recommended to run this pipeline within an isolated virtual environment.
-
-Bash
+```Bash
 # Create the virtual environment
 python -m venv venv
 
@@ -58,14 +58,14 @@ python -m venv venv
 .\venv\Scripts\activate
 
 # Activate the environment (Mac/Linux)
-# source venv/bin/activate
+source venv/bin/activate
 
 # Install required dependencies
 pip install -r requirements.txt
+```
 3. Initialize the Pipeline (Run in separate terminals)
 Ensure your virtual environment is activated in each new terminal before executing.
-
-Bash
+```Bash
 # Start the FastAPI Producer
 uvicorn producer_api:app --reload
 
@@ -74,8 +74,10 @@ python consumer_storage.py
 
 # Launch the Live Dashboard
 streamlit run app_dashboard.py
+```
 4. Execute the Stress Test
-Bash
+```Bash
 python stress_test.py
+```
 ## 📸 Dashboard Telemetry
 <img src="assets/139.png" width="800" alt="Dashboard UI Telemetry">
